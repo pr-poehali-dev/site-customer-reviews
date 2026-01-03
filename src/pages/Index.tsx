@@ -106,7 +106,7 @@ const Index = () => {
   const faqData = [
     {
       question: 'Когда выйдет полная версия?',
-      answer: 'Релиз запланирован на 2024 год. Следите за обновлениями в наших социальных сетях!'
+      answer: 'Релиз игры запланирован на 5 февраля 2026 года.'
     },
     {
       question: 'На каких платформах будет доступен проект?',
@@ -122,7 +122,7 @@ const Index = () => {
     },
     {
       question: 'Есть ли мультиплеер?',
-      answer: 'Да, игра поддерживает кооперативный режим на 2-4 игрока и соревновательный мультиплеер.'
+      answer: 'Нет. Данная игра не поддерживает мультиплеер.'
     }
   ];
 
@@ -131,7 +131,7 @@ const Index = () => {
       <div className="container mx-auto px-4 py-8">
         <header className="flex flex-col items-center justify-between gap-4 mb-12 sm:flex-row animate-fade-in">
           <h1 className="text-5xl font-bold text-glow animate-glow-pulse gradient-text">
-            Трейлер Проект
+            Мотоцикл: Проект Препятствие
           </h1>
           
           <div className="flex gap-2 items-center">
@@ -269,7 +269,7 @@ const Index = () => {
         </header>
 
         <Tabs defaultValue="trailer" className="w-full animate-fade-in">
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-card/50 backdrop-blur-sm border border-border">
+          <TabsList className="grid w-full grid-cols-5 mb-8 bg-card/50 backdrop-blur-sm border border-border">
             <TabsTrigger value="trailer" className="text-foreground data-[state=active]:gradient-bg">
               <Icon name="Play" size={18} className="mr-2" />
               Трейлер
@@ -281,6 +281,14 @@ const Index = () => {
             <TabsTrigger value="faq" className="text-foreground data-[state=active]:gradient-bg">
               <Icon name="HelpCircle" size={18} className="mr-2" />
               FAQ
+            </TabsTrigger>
+            <TabsTrigger value="links" className="text-foreground data-[state=active]:gradient-bg">
+              <Icon name="Link" size={18} className="mr-2" />
+              Ссылки
+            </TabsTrigger>
+            <TabsTrigger value="sponsors" className="text-foreground data-[state=active]:gradient-bg">
+              <Icon name="Heart" size={18} className="mr-2" />
+              Спонсоры
             </TabsTrigger>
           </TabsList>
 
@@ -411,6 +419,73 @@ const Index = () => {
                     </AccordionItem>
                   ))}
                 </Accordion>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="links" className="animate-fade-in">
+            <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-3xl gradient-text">Полезные ссылки</CardTitle>
+                <CardDescription className="text-foreground/70">
+                  Другие проекты и ресурсы
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <a 
+                  href="https://motorcycle-test-website--preview.poehali.dev" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-4 rounded-lg gradient-border bg-card/50 hover:bg-card/70 transition-all hover:scale-[1.02]"
+                >
+                  <Icon name="Bike" size={24} className="text-primary" />
+                  <div>
+                    <h3 className="font-semibold text-foreground">Тестовый сайт Мотоцикл</h3>
+                    <p className="text-sm text-foreground/60">motorcycle-test-website--preview.poehali.dev</p>
+                  </div>
+                  <Icon name="ExternalLink" size={18} className="ml-auto text-muted" />
+                </a>
+
+                <a 
+                  href="https://ticket-popcorn-project--preview.poehali.dev" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-4 rounded-lg gradient-border bg-card/50 hover:bg-card/70 transition-all hover:scale-[1.02]"
+                >
+                  <Icon name="Popcorn" size={24} className="text-secondary" />
+                  <div>
+                    <h3 className="font-semibold text-foreground">Проект Билеты и Попкорн</h3>
+                    <p className="text-sm text-foreground/60">ticket-popcorn-project--preview.poehali.dev</p>
+                  </div>
+                  <Icon name="ExternalLink" size={18} className="ml-auto text-muted" />
+                </a>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="sponsors" className="animate-fade-in">
+            <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-3xl gradient-text">Наши спонсоры</CardTitle>
+                <CardDescription className="text-foreground/70">
+                  Благодарим за поддержку проекта
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <a 
+                  href="https://leaf-shop-creation--preview.poehali.dev" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-6 rounded-lg gradient-bg hover:opacity-90 transition-opacity"
+                >
+                  <Icon name="Store" size={32} className="text-white" />
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Leaf Shop</h3>
+                    <p className="text-white/80">Официальный спонсор проекта</p>
+                    <p className="text-sm text-white/60 mt-1">leaf-shop-creation--preview.poehali.dev</p>
+                  </div>
+                  <Icon name="ExternalLink" size={20} className="ml-auto text-white/70" />
+                </a>
               </CardContent>
             </Card>
           </TabsContent>
