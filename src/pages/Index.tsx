@@ -33,7 +33,11 @@ interface CustomColors {
 }
 
 const Index = () => {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>(() => {
+    const saved = localStorage.getItem('theme');
+    return (saved as Theme) || 'dark';
+  });
+  
   const [reviews, setReviews] = useState<Review[]>([
     {
       id: 1,
@@ -59,19 +63,40 @@ const Index = () => {
   ]);
 
   const [newReview, setNewReview] = useState({ name: '', rating: 5, comment: '' });
-  const [customColors, setCustomColors] = useState<CustomColors>({
-    background: { h: 240, s: 10, l: 5 },
-    card: { h: 240, s: 10, l: 8 },
-    primary: { h: 270, s: 80, l: 65 },
-    secondary: { h: 280, s: 70, l: 55 },
-    accent: { h: 25, s: 95, l: 55 },
-    border: { h: 240, s: 10, l: 20 },
-    gradientStart: { h: 270, s: 80, l: 65 },
-    gradientMid: { h: 320, s: 80, l: 60 },
-    gradientEnd: { h: 25, s: 95, l: 55 }
+  const [customColors, setCustomColors] = useState<CustomColors>(() => {
+    const saved = localStorage.getItem('customColors');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        return {
+          background: { h: 240, s: 10, l: 5 },
+          card: { h: 240, s: 10, l: 8 },
+          primary: { h: 270, s: 80, l: 65 },
+          secondary: { h: 280, s: 70, l: 55 },
+          accent: { h: 25, s: 95, l: 55 },
+          border: { h: 240, s: 10, l: 20 },
+          gradientStart: { h: 270, s: 80, l: 65 },
+          gradientMid: { h: 320, s: 80, l: 60 },
+          gradientEnd: { h: 25, s: 95, l: 55 }
+        };
+      }
+    }
+    return {
+      background: { h: 240, s: 10, l: 5 },
+      card: { h: 240, s: 10, l: 8 },
+      primary: { h: 270, s: 80, l: 65 },
+      secondary: { h: 280, s: 70, l: 55 },
+      accent: { h: 25, s: 95, l: 55 },
+      border: { h: 240, s: 10, l: 20 },
+      gradientStart: { h: 270, s: 80, l: 65 },
+      gradientMid: { h: 320, s: 80, l: 60 },
+      gradientEnd: { h: 25, s: 95, l: 55 }
+    };
   });
 
   useEffect(() => {
+    localStorage.setItem('theme', theme);
     const root = document.documentElement;
     root.classList.remove('light', 'dark', 'custom');
     root.classList.add(theme);
@@ -88,6 +113,10 @@ const Index = () => {
       root.style.setProperty('--custom-gradient-end', `${customColors.gradientEnd.h} ${customColors.gradientEnd.s}% ${customColors.gradientEnd.l}%`);
     }
   }, [theme, customColors]);
+
+  useEffect(() => {
+    localStorage.setItem('customColors', JSON.stringify(customColors));
+  }, [customColors]);
 
   const handleSubmitReview = () => {
     if (newReview.name && newReview.comment) {
