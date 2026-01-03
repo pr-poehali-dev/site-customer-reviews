@@ -32,7 +32,7 @@ const faqData: FAQItem[] = [
 
 const FAQSection = () => {
   return (
-    <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm">
+    <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm animate-scale-in">
       <CardHeader>
         <CardTitle className="text-3xl gradient-text">Часто задаваемые вопросы</CardTitle>
         <CardDescription className="text-foreground/70">
@@ -59,7 +59,7 @@ const FAQSection = () => {
 
 const LinksSection = () => {
   return (
-    <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm">
+    <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm animate-scale-in">
       <CardHeader>
         <CardTitle className="text-3xl gradient-text">Полезные ссылки</CardTitle>
         <CardDescription className="text-foreground/70">
@@ -101,7 +101,7 @@ const LinksSection = () => {
 
 const SponsorsSection = () => {
   return (
-    <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm">
+    <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm animate-scale-in">
       <CardHeader>
         <CardTitle className="text-3xl gradient-text">Наши спонсоры</CardTitle>
         <CardDescription className="text-foreground/70">

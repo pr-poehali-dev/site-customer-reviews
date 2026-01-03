@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 import { Slider } from '@/components/ui/slider';
+import { playClickSound } from '@/utils/sounds';
 
 interface Review {
   id: number;
@@ -24,7 +25,7 @@ interface ReviewsSectionProps {
 const ReviewsSection = ({ reviews, newReview, setNewReview, handleSubmitReview }: ReviewsSectionProps) => {
   return (
     <div className="space-y-6">
-      <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm">
+      <Card className="border-2 gradient-border bg-card/80 backdrop-blur-sm animate-scale-in">
         <CardHeader>
           <CardTitle className="text-2xl gradient-text">Оставить отзыв</CardTitle>
           <CardDescription className="text-foreground/70">
@@ -68,7 +69,10 @@ const ReviewsSection = ({ reviews, newReview, setNewReview, handleSubmitReview }
           </div>
 
           <Button 
-            onClick={handleSubmitReview}
+            onClick={() => {
+              playClickSound();
+              handleSubmitReview();
+            }}
             className="w-full gradient-bg hover:opacity-90 transition-opacity"
           >
             <Icon name="Send" size={18} className="mr-2" />
@@ -79,7 +83,7 @@ const ReviewsSection = ({ reviews, newReview, setNewReview, handleSubmitReview }
 
       <div className="space-y-4">
         {reviews.map((review) => (
-          <Card key={review.id} className="border gradient-border bg-card/80 backdrop-blur-sm animate-fade-in hover:scale-[1.02] transition-transform">
+          <Card key={review.id} className="border gradient-border bg-card/80 backdrop-blur-sm animate-bounce-in hover:scale-[1.02] transition-transform">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg text-foreground">{review.name}</CardTitle>

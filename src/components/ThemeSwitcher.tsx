@@ -3,6 +3,7 @@ import Icon from '@/components/ui/icon';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
+import { playClickSound } from '@/utils/sounds';
 
 type Theme = 'light' | 'dark' | 'custom';
 
@@ -32,7 +33,10 @@ const ThemeSwitcher = ({ theme, setTheme, customColors, setCustomColors }: Theme
         <Button
           variant={theme === 'light' ? 'default' : 'ghost'}
           size="sm"
-          onClick={() => setTheme('light')}
+          onClick={() => {
+            playClickSound();
+            setTheme('light');
+          }}
           className="transition-all duration-300"
         >
           <Icon name="Sun" size={18} />
@@ -40,7 +44,10 @@ const ThemeSwitcher = ({ theme, setTheme, customColors, setCustomColors }: Theme
         <Button
           variant={theme === 'dark' ? 'default' : 'ghost'}
           size="sm"
-          onClick={() => setTheme('dark')}
+          onClick={() => {
+            playClickSound();
+            setTheme('dark');
+          }}
           className="transition-all duration-300"
         >
           <Icon name="Moon" size={18} />
@@ -48,7 +55,10 @@ const ThemeSwitcher = ({ theme, setTheme, customColors, setCustomColors }: Theme
         <Button
           variant={theme === 'custom' ? 'default' : 'ghost'}
           size="sm"
-          onClick={() => setTheme('custom')}
+          onClick={() => {
+            playClickSound();
+            setTheme('custom');
+          }}
           className="transition-all duration-300"
         >
           <Icon name="Palette" size={18} />
