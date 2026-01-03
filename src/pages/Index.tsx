@@ -21,15 +21,15 @@ interface Review {
 }
 
 interface CustomColors {
-  background: string;
-  card: string;
-  primary: string;
-  secondary: string;
-  accent: string;
-  border: string;
-  gradientStart: string;
-  gradientMid: string;
-  gradientEnd: string;
+  background: { h: number; s: number; l: number };
+  card: { h: number; s: number; l: number };
+  primary: { h: number; s: number; l: number };
+  secondary: { h: number; s: number; l: number };
+  accent: { h: number; s: number; l: number };
+  border: { h: number; s: number; l: number };
+  gradientStart: { h: number; s: number; l: number };
+  gradientMid: { h: number; s: number; l: number };
+  gradientEnd: { h: number; s: number; l: number };
 }
 
 const Index = () => {
@@ -60,15 +60,15 @@ const Index = () => {
 
   const [newReview, setNewReview] = useState({ name: '', rating: 5, comment: '' });
   const [customColors, setCustomColors] = useState<CustomColors>({
-    background: '240 10% 5%',
-    card: '240 10% 8%',
-    primary: '270 80% 65%',
-    secondary: '280 70% 55%',
-    accent: '25 95% 55%',
-    border: '240 10% 20%',
-    gradientStart: '270 80% 65%',
-    gradientMid: '320 80% 60%',
-    gradientEnd: '25 95% 55%'
+    background: { h: 240, s: 10, l: 5 },
+    card: { h: 240, s: 10, l: 8 },
+    primary: { h: 270, s: 80, l: 65 },
+    secondary: { h: 280, s: 70, l: 55 },
+    accent: { h: 25, s: 95, l: 55 },
+    border: { h: 240, s: 10, l: 20 },
+    gradientStart: { h: 270, s: 80, l: 65 },
+    gradientMid: { h: 320, s: 80, l: 60 },
+    gradientEnd: { h: 25, s: 95, l: 55 }
   });
 
   useEffect(() => {
@@ -77,15 +77,15 @@ const Index = () => {
     root.classList.add(theme);
 
     if (theme === 'custom') {
-      root.style.setProperty('--custom-background', customColors.background);
-      root.style.setProperty('--custom-card', customColors.card);
-      root.style.setProperty('--custom-primary', customColors.primary);
-      root.style.setProperty('--custom-secondary', customColors.secondary);
-      root.style.setProperty('--custom-accent', customColors.accent);
-      root.style.setProperty('--custom-border', customColors.border);
-      root.style.setProperty('--custom-gradient-start', customColors.gradientStart);
-      root.style.setProperty('--custom-gradient-mid', customColors.gradientMid);
-      root.style.setProperty('--custom-gradient-end', customColors.gradientEnd);
+      root.style.setProperty('--custom-background', `${customColors.background.h} ${customColors.background.s}% ${customColors.background.l}%`);
+      root.style.setProperty('--custom-card', `${customColors.card.h} ${customColors.card.s}% ${customColors.card.l}%`);
+      root.style.setProperty('--custom-primary', `${customColors.primary.h} ${customColors.primary.s}% ${customColors.primary.l}%`);
+      root.style.setProperty('--custom-secondary', `${customColors.secondary.h} ${customColors.secondary.s}% ${customColors.secondary.l}%`);
+      root.style.setProperty('--custom-accent', `${customColors.accent.h} ${customColors.accent.s}% ${customColors.accent.l}%`);
+      root.style.setProperty('--custom-border', `${customColors.border.h} ${customColors.border.s}% ${customColors.border.l}%`);
+      root.style.setProperty('--custom-gradient-start', `${customColors.gradientStart.h} ${customColors.gradientStart.s}% ${customColors.gradientStart.l}%`);
+      root.style.setProperty('--custom-gradient-mid', `${customColors.gradientMid.h} ${customColors.gradientMid.s}% ${customColors.gradientMid.l}%`);
+      root.style.setProperty('--custom-gradient-end', `${customColors.gradientEnd.h} ${customColors.gradientEnd.s}% ${customColors.gradientEnd.l}%`);
     }
   }, [theme, customColors]);
 
@@ -179,88 +179,149 @@ const Index = () => {
                   </SheetHeader>
                   
                   <div className="space-y-6 mt-6">
-                    <div>
-                      <Label className="text-foreground">Фон (Hue)</Label>
-                      <Slider
-                        value={[parseInt(customColors.background.split(' ')[0])]}
-                        onValueChange={(v) => setCustomColors({...customColors, background: `${v[0]} 10% 5%`})}
-                        max={360}
-                        step={1}
-                        className="mt-2"
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label className="text-foreground">Основной цвет (Hue)</Label>
-                      <Slider
-                        value={[parseInt(customColors.primary.split(' ')[0])]}
-                        onValueChange={(v) => setCustomColors({...customColors, primary: `${v[0]} 80% 65%`})}
-                        max={360}
-                        step={1}
-                        className="mt-2"
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label className="text-foreground">Вторичный цвет (Hue)</Label>
-                      <Slider
-                        value={[parseInt(customColors.secondary.split(' ')[0])]}
-                        onValueChange={(v) => setCustomColors({...customColors, secondary: `${v[0]} 70% 55%`})}
-                        max={360}
-                        step={1}
-                        className="mt-2"
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label className="text-foreground">Акцентный цвет (Hue)</Label>
-                      <Slider
-                        value={[parseInt(customColors.accent.split(' ')[0])]}
-                        onValueChange={(v) => setCustomColors({...customColors, accent: `${v[0]} 95% 55%`})}
-                        max={360}
-                        step={1}
-                        className="mt-2"
-                      />
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-foreground">Фон</h3>
+                      <div>
+                        <Label className="text-foreground">Оттенок (H): {customColors.background.h}°</Label>
+                        <Slider
+                          value={[customColors.background.h]}
+                          onValueChange={(v) => setCustomColors({...customColors, background: {...customColors.background, h: v[0]}})}
+                          max={360}
+                          step={1}
+                          className="mt-2"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-foreground">Насыщенность (S): {customColors.background.s}%</Label>
+                        <Slider
+                          value={[customColors.background.s]}
+                          onValueChange={(v) => setCustomColors({...customColors, background: {...customColors.background, s: v[0]}})}
+                          max={100}
+                          step={1}
+                          className="mt-2"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-foreground">Яркость (L): {customColors.background.l}%</Label>
+                        <Slider
+                          value={[customColors.background.l]}
+                          onValueChange={(v) => setCustomColors({...customColors, background: {...customColors.background, l: v[0]}})}
+                          max={100}
+                          step={1}
+                          className="mt-2"
+                        />
+                      </div>
+                      <div className="h-12 rounded-lg" style={{backgroundColor: `hsl(${customColors.background.h}, ${customColors.background.s}%, ${customColors.background.l}%)`}} />
                     </div>
 
-                    <div className="pt-4 border-t border-border">
-                      <h3 className="text-sm font-semibold mb-3 text-foreground">Градиент</h3>
+                    <div className="space-y-4 pt-4 border-t border-border">
+                      <h3 className="text-lg font-semibold text-foreground">Основной цвет</h3>
+                      <div>
+                        <Label className="text-foreground">Оттенок (H): {customColors.primary.h}°</Label>
+                        <Slider
+                          value={[customColors.primary.h]}
+                          onValueChange={(v) => setCustomColors({...customColors, primary: {...customColors.primary, h: v[0]}})}
+                          max={360}
+                          step={1}
+                          className="mt-2"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-foreground">Насыщенность (S): {customColors.primary.s}%</Label>
+                        <Slider
+                          value={[customColors.primary.s]}
+                          onValueChange={(v) => setCustomColors({...customColors, primary: {...customColors.primary, s: v[0]}})}
+                          max={100}
+                          step={1}
+                          className="mt-2"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-foreground">Яркость (L): {customColors.primary.l}%</Label>
+                        <Slider
+                          value={[customColors.primary.l]}
+                          onValueChange={(v) => setCustomColors({...customColors, primary: {...customColors.primary, l: v[0]}})}
+                          max={100}
+                          step={1}
+                          className="mt-2"
+                        />
+                      </div>
+                      <div className="h-12 rounded-lg" style={{backgroundColor: `hsl(${customColors.primary.h}, ${customColors.primary.s}%, ${customColors.primary.l}%)`}} />
+                    </div>
+
+                    <div className="space-y-4 pt-4 border-t border-border">
+                      <h3 className="text-lg font-semibold text-foreground">Акцентный цвет</h3>
+                      <div>
+                        <Label className="text-foreground">Оттенок (H): {customColors.accent.h}°</Label>
+                        <Slider
+                          value={[customColors.accent.h]}
+                          onValueChange={(v) => setCustomColors({...customColors, accent: {...customColors.accent, h: v[0]}})}
+                          max={360}
+                          step={1}
+                          className="mt-2"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-foreground">Насыщенность (S): {customColors.accent.s}%</Label>
+                        <Slider
+                          value={[customColors.accent.s]}
+                          onValueChange={(v) => setCustomColors({...customColors, accent: {...customColors.accent, s: v[0]}})}
+                          max={100}
+                          step={1}
+                          className="mt-2"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-foreground">Яркость (L): {customColors.accent.l}%</Label>
+                        <Slider
+                          value={[customColors.accent.l]}
+                          onValueChange={(v) => setCustomColors({...customColors, accent: {...customColors.accent, l: v[0]}})}
+                          max={100}
+                          step={1}
+                          className="mt-2"
+                        />
+                      </div>
+                      <div className="h-12 rounded-lg" style={{backgroundColor: `hsl(${customColors.accent.h}, ${customColors.accent.s}%, ${customColors.accent.l}%)`}} />
+                    </div>
+
+                    <div className="space-y-4 pt-4 border-t border-border">
+                      <h3 className="text-lg font-semibold text-foreground">Градиент</h3>
                       
                       <div>
-                        <Label className="text-foreground">Начало (Hue)</Label>
+                        <Label className="text-foreground">Начало - Оттенок (H): {customColors.gradientStart.h}°</Label>
                         <Slider
-                          value={[parseInt(customColors.gradientStart.split(' ')[0])]}
-                          onValueChange={(v) => setCustomColors({...customColors, gradientStart: `${v[0]} 80% 65%`})}
+                          value={[customColors.gradientStart.h]}
+                          onValueChange={(v) => setCustomColors({...customColors, gradientStart: {...customColors.gradientStart, h: v[0]}})}
                           max={360}
                           step={1}
                           className="mt-2"
                         />
                       </div>
                       
-                      <div className="mt-4">
-                        <Label className="text-foreground">Середина (Hue)</Label>
+                      <div>
+                        <Label className="text-foreground">Середина - Оттенок (H): {customColors.gradientMid.h}°</Label>
                         <Slider
-                          value={[parseInt(customColors.gradientMid.split(' ')[0])]}
-                          onValueChange={(v) => setCustomColors({...customColors, gradientMid: `${v[0]} 80% 60%`})}
+                          value={[customColors.gradientMid.h]}
+                          onValueChange={(v) => setCustomColors({...customColors, gradientMid: {...customColors.gradientMid, h: v[0]}})}
                           max={360}
                           step={1}
                           className="mt-2"
                         />
                       </div>
                       
-                      <div className="mt-4">
-                        <Label className="text-foreground">Конец (Hue)</Label>
+                      <div>
+                        <Label className="text-foreground">Конец - Оттенок (H): {customColors.gradientEnd.h}°</Label>
                         <Slider
-                          value={[parseInt(customColors.gradientEnd.split(' ')[0])]}
-                          onValueChange={(v) => setCustomColors({...customColors, gradientEnd: `${v[0]} 95% 55%`})}
+                          value={[customColors.gradientEnd.h]}
+                          onValueChange={(v) => setCustomColors({...customColors, gradientEnd: {...customColors.gradientEnd, h: v[0]}})}
                           max={360}
                           step={1}
                           className="mt-2"
                         />
                       </div>
-                    </div>
 
-                    <div className="h-20 rounded-lg gradient-bg animate-gradient-shift bg-300%" />
+                      <div className="h-20 rounded-lg gradient-bg animate-gradient-shift bg-300%" />
+                    </div>
                   </div>
                 </SheetContent>
               </Sheet>
@@ -300,7 +361,7 @@ const Index = () => {
                   Погрузитесь в захватывающий мир нашего проекта
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-6">
                 <div className="aspect-video w-full rounded-lg overflow-hidden shadow-2xl">
                   <iframe
                     width="100%"
@@ -312,6 +373,13 @@ const Index = () => {
                     allowFullScreen
                     className="w-full h-full"
                   />
+                </div>
+                
+                <div className="p-6 rounded-lg bg-card border-2 gradient-border">
+                  <h3 className="text-2xl font-bold gradient-text mb-3">Сюжет</h3>
+                  <p className="text-foreground/90 leading-relaxed">
+                    Вы попали в игру и не знаете как из неё выбраться. Вам надо пройти все 20 уровней и нажать кнопку "Завершить работу". И вас перекинет обратно в реальность.
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -440,7 +508,7 @@ const Index = () => {
                 >
                   <Icon name="Bike" size={24} className="text-primary" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Тестовый сайт Мотоцикл</h3>
+                    <h3 className="font-semibold text-foreground">Тест на мотоциклиста</h3>
                     <p className="text-sm text-foreground/60">motorcycle-test-website--preview.poehali.dev</p>
                   </div>
                   <Icon name="ExternalLink" size={18} className="ml-auto text-muted" />
@@ -454,7 +522,7 @@ const Index = () => {
                 >
                   <Icon name="Popcorn" size={24} className="text-secondary" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Проект Билеты и Попкорн</h3>
+                    <h3 className="font-semibold text-foreground">Официальный сайт фильма</h3>
                     <p className="text-sm text-foreground/60">ticket-popcorn-project--preview.poehali.dev</p>
                   </div>
                   <Icon name="ExternalLink" size={18} className="ml-auto text-muted" />

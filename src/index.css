@@ -7,13 +7,13 @@
 @layer base {
   :root {
     --background: 240 10% 98%;
-    --foreground: 0 0% 100%;
+    --foreground: 270 80% 50%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 100%;
+    --card-foreground: 270 80% 50%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 100%;
+    --popover-foreground: 270 80% 50%;
 
     --primary: 270 80% 65%;
     --primary-foreground: 0 0% 100%;
@@ -22,7 +22,7 @@
     --secondary-foreground: 0 0% 100%;
 
     --muted: 240 10% 90%;
-    --muted-foreground: 0 0% 100%;
+    --muted-foreground: 270 80% 50%;
 
     --accent: 25 95% 55%;
     --accent-foreground: 0 0% 100%;
@@ -131,7 +131,15 @@
 }
 
 @layer utilities {
-  .text-glow {
+  .light .text-glow {
+    text-shadow:
+      0 0 20px rgba(155, 135, 245, 0.6),
+      0 0 40px rgba(155, 135, 245, 0.4),
+      0 0 60px rgba(155, 135, 245, 0.3);
+  }
+
+  .dark .text-glow,
+  .custom .text-glow {
     text-shadow:
       0 0 20px rgba(255, 255, 255, 0.5),
       0 0 40px rgba(155, 135, 245, 0.3),
